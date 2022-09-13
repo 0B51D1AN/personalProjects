@@ -1,0 +1,2 @@
+I went about writing this program very similarly to the Library program. I used an edited version of my main method to initiate the UI for the user. This time, instead of using if statements
+I used multiple switch statements to complete a similar result. Each switch led to a different method which did whatever action was described by the 

@@ -1,0 +1,27 @@
+My initial thought process was creating a constructor class for a bingo card in order to easily manipulate and call commands for the bingo card.
+Additionally this format would make it easier to implement a multiplayer version of the bingo game.
+
+fillCard was a simple method with three steps
+-vetting a random number to make sure it had not been called yet
+-placing it into the array
+-increasing the range of the random number as the rows increased
+
+just as the steps, i separated my code into 3 parts do do each of the tasks
+
+
+
+
+printCard was an easy loop to call each of the numbers, with a check to see if any of those numbers had already been "picked" by playGame
+
+playGame replaced numbers that were on the bingocard with a 0 which printCard then printed as an X
+
+
+
+checkWin
+also did multiple loops to check each possible win condition and then returned an integer if any of the results were true
+this ended up also being helpful to determine which win condition the player achieved
+
+
+
+
+
