@@ -1,5 +1,5 @@
 import java.util.*;
-
+import java.io.IOException;
 
 public class EmployeeTest
 {
@@ -93,7 +93,7 @@ System.out.println("Invalid Input.. Please try again: ");
 
 
 
-
+scan.close();
 
 }
 
@@ -113,8 +113,8 @@ clearScreen();
 
 if(file.size()==0)
 {
-clearScreen();
-System.out.println("There are currently no Employees in the file\n\n\n\n\n");
+	clearScreen();
+	System.out.println("There are currently no Employees in the file\n\n\n");
 
 }
 else
@@ -129,16 +129,9 @@ else
   }	
   System.out.println("Wages have been changed successfully\n\n");
 }
+scn.close();
 
 }
-
-
-
-
-
-
-
-
 
 
 ///////////////////////////////////////
@@ -152,30 +145,30 @@ Scanner scn= new Scanner(System.in);
   if(file.size()==0)
   {
   
-  clearScreen();
-  System.out.println("There are currently no Employees in the file");
-  
+	clearScreen();
+	System.out.println("There are currently no Employees in the file");
+	
   }
   else
   {
-  for(int i=0; i<file.size();i++)
-  {
-	System.out.println("Enter the number of hours worked by:  "+file.get(i).getName());
+		for(int i=0; i<file.size();i++)
+		{
+		System.out.println("Enter the number of hours worked by:  "+file.get(i).getName());
 
-	int ans= scn.nextInt();
+		int ans= scn.nextInt();
 
-	file.get(i).computePay(ans);
+		file.get(i).computePay(ans);
+		}
   }
-  }
 
-System.out.println("\n\n\n\n");
-
+	System.out.println("\n\n\n\n");
+	scn.close();
 }
 
 
 public static void printRecords()
 {
-System.out.println("	      EMPLOYEE  RECORDS		\n");
+//System.out.println("	      EMPLOYEE  RECORDS		\n");
 for(int i=0; i<file.size(); i++)
 {
 
@@ -184,7 +177,7 @@ System.out.println(file.get(i).toString());
 
 }
 
-System.out.println("\n\n\n\n");
+System.out.println("\n\n\n");
 
 
 }
@@ -221,7 +214,7 @@ Scanner scn= new Scanner(System.in);
 	System.out.println("Invalid Input.. Please try again: ");
 	deleteEmployee();
 	}
-
+scn.close();
 //}
 
 }
@@ -232,7 +225,8 @@ Scanner scn= new Scanner(System.in);
 public static void start()
 {
 Scanner scn= new Scanner(System.in);
-
+ProcessBuilder processBuilder = new ProcessBuilder("java", "Utils/ObjIn.java" );
+ProcessBuilder processBuilder2 = new ProcessBuilder("java", "Utils/ObjOut.java" );
 
 System.out.println("	  Employee Database	");
 System.out.println("\n"+"Commands: n- New Employee\n	  c- Compute Wages\n	  r- Raise Wages\n	  p- Print Records\n	  d- Download Data\n	  u- Upload Data\n	  k- Delete Employee\n	  q- Quit");	
@@ -263,18 +257,42 @@ case "p":	clearScreen();
 		start();
 
 case "d":	clearScreen();
-		ObjOut.objectOut(file);
+		try 
+		{
+			// Start the process
+			Process process = processBuilder.start();
+			
+			// Wait for the process to complete
+			int exitCode = process.waitFor();
+			
+			// Print the exit code
+			System.out.println("Exit code: " + exitCode);
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
 		System.out.println("File successfully downloaded\n");
 		start();
 
 case "u":	clearScreen();
-		file=(ObjIn.objectIn(file));
+		try 
+		{
+			// Start the process
+			Process process = processBuilder2.start();
+			
+			// Wait for the process to complete
+			int exitCode = process.waitFor();
+			
+			// Print the exit code
+			System.out.println("Exit code: " + exitCode);
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
 		System.out.println("	   File Uploaded\n");
 		start();
 
 case "k":	clearScreen();
 		deleteEmployee();
-		//System.out.println("Employee Successfully Deleted");
+		System.out.println("Employee Successfully Deleted");
 		start();
 
 case "q":	clearScreen();
@@ -289,6 +307,8 @@ default:  clearScreen();
 
 
 }
+
+scn.close();
 
 }
 

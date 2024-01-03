@@ -12,7 +12,7 @@ public class ObjIn
 	ArrayList<Employee> ans=new ArrayList<Employee>();
 	
 	String fileName = "object.out";
-       // int[] a = null;
+        //int[] a = null;
         try {
           FileInputStream fileIn =
             new FileInputStream(fileName);

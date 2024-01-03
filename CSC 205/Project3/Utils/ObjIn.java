@@ -1,8 +1,10 @@
 import java.io.*;
+import java.util.ArrayList;
 public class ObjIn
 {
       public static void main(String[] args)
       {
+        
         String fileName = "object.out";
         int[] a = null;
         try {
@@ -21,7 +23,12 @@ public class ObjIn
           System.out.println(e.getMessage());
         }
         for (int i = 0;  i < a.length;  i++)
-                System.out.println(a[i]);
-
+        {
+          System.out.println(i+": ");
+          System.out.println(a[i]);
+          
+        }
       }
 }
+
+
