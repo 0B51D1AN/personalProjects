@@ -34,7 +34,12 @@ public class Queue implements QueueInterface {
   public Object dequeue() throws QueueException {
 
      // INSERT YOUR CODE HERE to handle 3 cases : when queue is empty, has one item, and more than one item
-
+    if (isEmpty()) {
+      
+      lastNode = null; 
+      //lastNode.setNext(lastNode);  
+    }
+    return lastNode.getItem();
 
   } 
   
