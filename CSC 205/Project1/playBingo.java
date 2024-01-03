@@ -12,14 +12,14 @@ public static void main(String [] args)
 
 Scanner scn= new Scanner(System.in);
 
-System.out.println("Hello, what would you like your username to be?");
+//System.out.println("Hello, what would you like your username to be?");
 
-String s=scn.next();
+//String s=scn.next();
 
-bingoPlayer p1= new bingoPlayer(s);
+bingoPlayer p1= new bingoPlayer("");
 
 
-System.out.println("Good, now lets play the game..."+"\n"+"here is your Bingo Card: "+"\n");
+System.out.println("Here is your Bingo Card: "+"\n");
 System.out.println();
 p1.printStats();
 /////////////////////////////////////////////////////////

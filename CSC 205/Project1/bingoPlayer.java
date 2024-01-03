@@ -38,11 +38,11 @@ public void declareWinner()
 {
 
 if(this.checkWin()==3)
-	System.out.println("\n"+this.getName()+ " Just got a Diagonal Bingo!!"+"\n");
+	System.out.println("\n You just got a Diagonal Bingo!!"+"\n");
 if(this.checkWin()==1)
-	System.out.println("\n"+this.getName()+ " Just got a Horizontal Bingo!!"+"\n");
+	System.out.println("\n You just got a Horizontal Bingo!!"+"\n");
 if(this.checkWin()==2)
-	System.out.println("\n"+this.getName()+ " Just got a Vertical Bingo!!"+"\n");
+	System.out.println("\n You just got a Vertical Bingo!!"+"\n");
 
 
 }
