@@ -1,0 +1,55 @@
+Djikstra's algorythm 
+
+
+PART 1
+
+INPUT: Data set 
+
+OUTPUT: Weighted Graph with all possible nodes linked (Show in terminal)
+
+Priorities:
+    - Store vertices in a structure that holds relevant data
+    - set up graph for efficient use of dijkstra's
+
+1. Input .dat file and use ";" delimiter to read through data and organize
+
+2. Prompt user if missprint or if asked for unknown node/file(type)
+
+3. Prep for further use from user
+
+STRUCT:
+
+    string + int
+
+    Node (string name, int distance);
+        string name;    
+        int distance;     
+        Links *[] -> array of pointers to linked nodes with corresponding distances (Hashmap name implementation??)
+
+    void pushLocation(Node(string location, int distance to node))
+        - enter new location
+
+    bool isLocation(string name)
+        -checks if location is linked
+
+    int getWeight(string name)
+        -returns distance to location if linked
+        else -1?
+
+
+
+
+
+PART2
+
+INPUT: Starting vertices
+
+OUTPUT: All possible nodes that can be reached and the minimum distance 
+
+Priorities:
+    - Use Dijkstra's to find the shortest route to every node from given start.
+
+
+
+
+

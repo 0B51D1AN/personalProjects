@@ -1,0 +1,10 @@
+
+1. The attributes of the DList class and why templates are being used
+- DList class holds any variable placed into the list which is doubly linked and moves items to the front when accessed. Templates are being used so that DLists can hold all variable types.
+
+2. A description of each of the operations of the DList class
+
+3. The role of the Move to the Front Algorithm
+-
+4. A description of the main algorithm followed by the client program
+

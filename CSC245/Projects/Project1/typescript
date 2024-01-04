@@ -1,0 +1,513 @@
+Script started on Fri 23 Sep 2022 11:57:53 PM EDT
+]0;rodriguez_kd@cobra:~/CSC245/Projects/Project1[?1034h[rodriguez_kd@cobra Project1]$ cat MoveFront.cpp
+#include <iostream>
+#include "dlist.h"
+#include <cstddef>
+
+
+using namespace std;
+
+void HeadInsert(DList<int>& list1);
+void TailInsert(DList<int>& list1);
+void AccessItem(DList<int>& list1);
+void Delete(DList<int>& list1); 
+void PrintList(const DList<int>& list1);
+void PrintLength(const DList<int>& list1);
+void PrintMenu ();
+void FindMove(DList<int>&list1);
+
+int main()
+{
+
+    
+
+    DList<int> list;
+    char sel;
+
+    //HeadInsert(list);
+    
+
+    do
+    {
+        PrintMenu ();
+        cin >> sel;
+        switch (toupper(sel))
+        {
+            case 'H' : HeadInsert(list); break;
+            case 'T' : TailInsert(list); break;
+            case 'A' : AccessItem(list); break;
+            case 'D' : Delete(list); break;
+            case 'P' : PrintList(list); break;
+            case 'L' : PrintLength(list); break;
+            case 'Q' : cout << "\tExiting Program...\n"; break;
+            default : cout << "\tError. Try Again." << endl;
+        }
+    } while (toupper(sel) != 'Q');
+
+
+
+
+
+    return 0;
+}
+
+//////////////////////////////////////////////////////
+
+void PrintMenu()
+{
+cout<<"|                                            |\n|                    Menu                    |\n";
+cout<<"|                                            |\n";
+cout<<"==============================================\n";
+cout<<"| Please enter one of the following characters: |\n";
+cout<<"| H: Insert item at the front of the list       |\n";
+cout<<"| T: Insert item at the back of the list        |\n";
+cout<<"| A: Access an item in the list                 |\n";
+cout<<"| D: Delete an item in the list                 |\n";
+cout<<"| P: Print the list                             |\n";
+cout<<"| L: Print the lists's length                   |\n";
+cout<<"| Q: Quit the program                           |\n";
+cout<<"*******************************************\n\n";
+//cin >> ans;
+
+}
+
+//////////////////////////////////////////////////////
+
+void HeadInsert(DList<int>& list1)
+{
+
+int ans;
+
+cout<<"Please enter the number you would like to place at the front of the list: \n";
+cin>>ans;
+
+list1.insertHead(ans);
+
+}
+
+//////////////////////////////////////////////////////
+
+void TailInsert(DList<int>& list1)
+{
+int ans;
+
+cout<<"Please enter the number you would like to place at the back of the list: \n";
+cin>>ans;
+list1.appendTail(ans);
+
+}
+//////////////////////////////////////////////////////
+
+void AccessItem(DList<int>& list1)
+{
+int ans;
+
+
+PrintList(list1);
+if(list1.isEmpty()==false)
+{
+    cout<<"Please enter the number you would like to access: \n";
+    cin>>ans;
+    if(list1.inList(ans))
+        {
+            
+        }
+}
+
+
+}
+
+//////////////////////////////////////////////////////
+
+
+void Delete(DList<int>& list1)
+{
+int ans;
+
+PrintList(list1);
+if(list1.isEmpty()==false)
+{
+    cout<<"Please enter the number you would like to delete from the list: \n";
+    cin>>ans;
+    cout<<list1.inList(ans);
+    if(list1.inList(ans)==true)
+    {
+        
+        list1.deleteItem(ans);
+        cout<<"Item has been deleted successfully";    
+    }
+    else
+        cout<<"The number you entered is not in the list...";
+
+
+}
+}
+//////////////////////////////////////////////////////
+
+void PrintList(const DList<int>& list1)
+{
+    if(list1.isEmpty())
+        cout<<"There are no items currently in the list...\n";
+    else    
+        list1.print();
+
+
+}
+
+//////////////////////////////////////////////////////
+
+void PrintLength(const DList<int>& list1)
+{
+    cout<<"The Length of the list is currently: "<<list1.lengthIs()<<"\n\n"<<endl;
+    
+}
+
+]0;rodriguez_kd@cobra:~/CSC245/Projects/Project1[rodriguez_kd@cobra Project1]$ cat dlist.h
+
+using namespace std;
+
+template <class ItemType>
+struct NodeType;
+
+template <class ItemType>
+class DList 
+{
+public :
+    DList ();		// Constructor
+    ~DList ();  	// Destructor	
+
+    // Public Operations
+    void makeEmpty (); 
+    void deleteItem (ItemType item);
+    bool inList (ItemType item) const;	
+    bool isEmpty () const;  
+    void print() const; 
+    void insertHead (ItemType item); 
+    void appendTail (ItemType item); 
+    int lengthIs() const;
+
+private :
+    // Private Attributes of a DList Object 
+    NodeType<ItemType>* head;
+    int length;
+
+    // Functions Called Solely By Public Functions, Not The Client 
+    NodeType<ItemType>* location(ItemType item) const;
+    NodeType<ItemType>* last() const; 
+    void deleteLocation (NodeType<ItemType>* delPtr);
+};
+
+#include "dlist.cpp"
+]0;rodriguez_kd@cobra:~/CSC245/Projects/Project1[rodriguez_kd@cobra Project1]$ cat dlist.cpp
+#include <cstddef> 
+#include <iostream>
+#include <new>
+using namespace std;
+
+template<class ItemType>
+struct NodeType
+{
+	ItemType info;
+	NodeType<ItemType>*	next;
+	NodeType<ItemType>*	back;
+};
+
+template <class ItemType>		
+DList<ItemType>::DList()		// Class constructor
+{
+    length = 0;
+    head = NULL;
+}
+
+
+////////////////////////////////////////////////////////////////
+template <class ItemType>
+DList<ItemType>::~DList()		
+{
+	// Post: List is empty; All items have been deallocated.
+        /*
+        NodeType<ItemType>* tempPtr=head;
+        while(tempPtr->next != NULL)
+        {
+                delete tempPtr;
+                tempPtr=tempPtr->next;
+
+        }
+
+        delete tempPtr;
+        */
+}
+
+////////////////////////////////////////////////////////////////
+template <class ItemType>
+void DList<ItemType>::makeEmpty()
+{
+    // Post: List is empty; all items have been deallocated.
+
+
+
+
+}
+////////////////////////////////////////////////////////////////
+
+template <class ItemType>
+void DList<ItemType>::deleteItem (ItemType item)	
+{
+	//  Pre :  item to be deleted is passed in via parameter 
+        // Post :  item is deleted if it exists in list 
+        NodeType<ItemType>* tempPtr= location(item);
+
+        deleteLocation(tempPtr);
+        
+
+
+}
+
+
+////////////////////////////////////////////////////////////////
+template <class ItemType>
+bool DList<ItemType>::inList (ItemType item) const
+{
+	//  Pre :  item to be located is passed in via parameter 
+        // Post :  function returns bool value if item is found 
+
+        NodeType<ItemType>* tempPtr=head;
+
+        while (tempPtr->info!=item)
+        {
+                if(tempPtr->next==NULL)
+                        return false;
+                
+                tempPtr=tempPtr->next;
+
+        }
+
+        return true;
+
+
+}
+
+
+
+
+
+////////////////////////////////////////////////////////////////
+template <class ItemType>
+bool DList<ItemType>::isEmpty() const		
+{
+	// Post : function returns true if list is empty, false otherwise
+        if(head==NULL)
+        {
+                //cout<<"True\n";
+                return true;
+        }
+        else
+        {
+                //cout<<"False\n";
+                return false;
+        }
+}
+
+
+
+
+
+////////////////////////////////////////////////////////////////
+template <class ItemType>
+void DList<ItemType>::print() const	
+{
+	// Pre  : List is not empty 
+	// Post : Items in List have been printed to screen
+        NodeType<ItemType>* tempPtr=head;
+
+        cout<<"List:  ";
+
+        if(length==1)
+        {
+                cout<<"| "<<head->info<<" |"<<endl;
+        }
+        else
+        {
+                cout<<"| ";
+                while(tempPtr->next!=NULL)
+                {       
+                        cout<<tempPtr->info<<" | ";
+                        tempPtr=tempPtr->next;
+                }
+                cout<<tempPtr->info<<" |\n\n"<<endl;
+                
+        }
+
+}
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////	
+template <class ItemType>
+void DList<ItemType>::insertHead(ItemType item)	
+{
+	//  Pre : item to be inserted is passed in via parameter
+        // Post : item is inserted at head of list;  Former first node is 
+        //        linked back to this new one via double link;
+        //        Length incremented;  Special case handled if list is empty 
+
+
+        // ALLOCATE MEMORY FOR NEW ITEM
+
+        NodeType<ItemType>* tempNode= new NodeType<ItemType>;
+        
+
+        if(isEmpty()==true)
+        {
+                head=tempNode;
+                head->info=item;
+                length++;
+                cout<< "Item placed at the front of the list: "<<head->info<<endl;
+        }
+        else
+        {
+               head->back=tempNode; 
+               tempNode->info=item;
+               tempNode->next=head;
+               head=tempNode;
+               length++;
+               cout<< "Item placed at the front of the list: "<< head->info<<endl;
+        }
+}
+
+
+
+
+////////////////////////////////////////////////////////////////
+template <class ItemType>
+void DList<ItemType>::appendTail(ItemType item)
+{
+	//  Pre :  item to be inserted is passed in via parameter
+        // Post :  item is added to tail of list; Former last node
+        //         is linked to this new one via double link 
+        NodeType<ItemType>* tempNode= new NodeType<ItemType>;
+        
+
+        if(isEmpty()==true)
+        {
+              head=tempNode;
+              head->info=item;
+              length++;
+              cout<< "Item placed at the back of the list: "<<head->info<<endl; 
+        }
+        else
+        {
+                NodeType<ItemType>* lastPtr=last();
+                lastPtr->next=tempNode;
+                tempNode->info=item;
+                tempNode->back=lastPtr;  
+                length++;    
+                cout<< "Item placed at the back of the list: "<<last()->info<<endl;        
+
+        }
+
+
+
+
+
+}
+////////////////////////////////////////////////////////////////
+template <class ItemType>
+int DList<ItemType>::lengthIs() const	
+{
+	// Post : Function returns current length of list  
+        return length;
+}
+////////////////////////////////////////////////////////////////
+template <class ItemType>
+NodeType<ItemType>* DList<ItemType>::location(ItemType item) const	
+{
+	//  Pre : item to be located is passed in via parameter 
+        // Post : function returns address of item being searched for --
+        //        if not found, NULL is returned  
+        
+        NodeType<ItemType>* tempPtr=head;
+
+        while(tempPtr->next != NULL)
+        {
+                if(tempPtr->info==item)
+                        return tempPtr;
+                else
+                        tempPtr=tempPtr->next;
+        }
+
+        return NULL;
+
+
+	
+}
+////////////////////////////////////////////////////////////////
+template <class ItemType>
+NodeType<ItemType>* DList<ItemType>::last() const	
+{
+	// Post : Function returns location of current last item in list
+        NodeType<ItemType> *ptrlast= head;
+
+        while (ptrlast->next != NULL)
+        {
+                ptrlast=ptrlast->next;
+
+        }
+
+	return ptrlast;
+
+}
+////////////////////////////////////////////////////////////////
+template <class ItemType>
+void DList<ItemType>::deleteLocation (NodeType<ItemType>* delPtr)	
+{
+
+	//  Pre : Item to be deleted exits in list and its location
+        //        is passed in via parameter
+                   
+	// Post : Location passed in is removed from list;  Length
+        //        is decremented, and location is deallocated 
+
+        // Special Cases Handled for Deleting Only One Item in List,
+        // The Head Item of List, and the Tail Item of List
+        //NodeType<ItemType>* tempPtr= new NodeType<ItemType>;
+        //cout<<last()->info;
+
+        if(delPtr==head)
+        {
+                head=head->next;
+                head->back=NULL;
+                delPtr->next=NULL;
+                delete delPtr;
+
+        }
+        else if(delPtr==last())
+        {
+                
+                delPtr->back->next=NULL;
+                delPtr->back=NULL;
+                delete delPtr;
+                length--;
+        }
+        else
+        {
+                delPtr->back->next=delPtr->next;
+                delPtr->next->back=delPtr->back;
+                delete delPtr;
+                length--;                
+        }
+        
+
+
+}
+]0;rodriguez_kd@cobra:~/CSC245/Projects/Project1[rodriguez_kd@cobra Project1]$ c++ MoveFront.cpp
+]0;rodriguez_kd@cobra:~/CSC245/Projects/Project1[rodriguez_kd@cobra Project1]$ ./[K[Ka.out
+bash: a.out: command not found...
+]0;rodriguez_kd@cobra:~/CSC245/Projects/Project1[rodriguez_kd@cobra Project1]$ exit
+exit
+
+Script done on Fri 23 Sep 2022 11:58:39 PM EDT
